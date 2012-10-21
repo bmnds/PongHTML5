@@ -9,18 +9,18 @@ GOALS
 
 The goals for this project were:
 
-	* develop a pong game in html5 having two vertical bars, a ball and two bouncing walls at the bottom and at the top of the screen
-	* the player bar must be controlled by the mouse
-	* there should be a start screen to inform the scores and wait for an event to start the game
-	* there should be an end screen to inform the winner, the scores and wait for an event to start the game
+ * develop a pong game in html5 having two vertical bars, a ball and two bouncing walls at the bottom and at the top of the screen
+ * the player bar must be controlled by the mouse
+ * there should be a start screen to inform the scores and wait for an event to start the game
+ * there should be an end screen to inform the winner, the scores and wait for an event to start the game
 	
 During the development of the game the mechanics were still unclear. With a trial and error strategy the mechanics became:
 	
-	* the game should run at aproximately 60 fps
-	* the ball should be given a random direction at the beginning of a new game and a speed of factor 4
-	* the ball direction shouldn't exceed 60 degrees in relation to the horizontal axis, avoiding directions that turn the 'point of collision' almost unpredictable for the player
-	* the ball speed shouldn't exceed a factor of 10, otherwise the human player can't follow it properly
-	* for collisions, the idea was to use the momentum conservation formula to predict the resulting speed and direction of the ball, but given the paddle's movement is independant from the ball movement even after a collision, an easier approach was used: invert horizontal speed; sum paddle speed with ball vertical speed; then use vector knowledge to extract module and angle out of horizontal and vertical speeds.
+ * the game should run at aproximately 60 fps
+ * the ball should be given a random direction at the beginning of a new game and a speed of factor 4
+ * the ball direction shouldn't exceed 60 degrees in relation to the horizontal axis, avoiding directions that turn the 'point of collision' almost unpredictable for the player
+ * the ball speed shouldn't exceed a factor of 10, otherwise the human player can't follow it properly
+ * for collisions, the idea was to use the momentum conservation formula to predict the resulting speed and direction of the ball, but given the paddle's movement is independant from the ball movement even after a collision, an easier approach was used: invert horizontal speed; sum paddle speed with ball vertical speed; then use vector knowledge to extract module and angle out of horizontal and vertical speeds.
 
 FILES
 =====
