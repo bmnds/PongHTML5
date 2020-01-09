@@ -30,9 +30,9 @@ function init() {
 function waitStartGameAction(winner) {
 	if (gameLoop) clearInterval(gameLoop)
 	
-	ctx.setAlpha(0.5)
+	ctx.globalAlpha = 0.5
 	redraw()
-	ctx.setAlpha(1)
+	ctx.globalAlpha = 1
 	drawNewGameMessage(winner)
 		
 	c.onmousedown = function (e) {
@@ -59,14 +59,14 @@ function waitStartGameAction(winner) {
 	}
 }
 
-//Define aleatóriamente uma direção para a bola
+//Define aleatï¿½riamente uma direï¿½ï¿½o para a bola
 function randomizeBallDir() {
 	ball.dir = Math.random()*RAD[360]
 	
 	normalizeBallDir()
 }
 
-//Normaliza a direção para valores entre -60 e 60 ou entre 120 e -120
+//Normaliza a direï¿½ï¿½o para valores entre -60 e 60 ou entre 120 e -120
 function normalizeBallDir() {
 	var negative = ball.dir < 0 ? 1 : 0
 	ball.dir = Math.abs(ball.dir)%RAD[360]
@@ -89,20 +89,20 @@ function normalizeBallSpeed() {
 	if (negative) ball.speed = -ball.speed
 }
 
-//Atualiza a posição da bola de acordo com sua direção e velocidade
+//Atualiza a posiï¿½ï¿½o da bola de acordo com sua direï¿½ï¿½o e velocidade
 function moveBall(ball) {
 	ball.x += ball.speed * Math.cos(ball.dir)
 	ball.y -= ball.speed * Math.sin(ball.dir)
 }
 
-//Atualiza a posição da barra de acordo com a direção escolhida pelo jogador
+//Atualiza a posiï¿½ï¿½o da barra de acordo com a direï¿½ï¿½o escolhida pelo jogador
 function movePaddle(paddle, dir, speed) {
 	switch (dir) {
 	case 'up': paddle.y -= speed; break
 	case 'down': paddle.y += speed; break
 	}
 	
-	//Normaliza a posição da barra
+	//Normaliza a posiï¿½ï¿½o da barra
 	if (paddle.y < paddle.h) paddle.y = paddle.h
 	else if (paddle.y > h-paddle.h) paddle.y = h-paddle.h
 }
@@ -119,40 +119,40 @@ function checkEndGame() {
 	}
 }
 
-//Trata colisões, caso haja alguma
+//Trata colisï¿½es, caso haja alguma
 function checkCollision() {
 	calcPaddleSpeed()
 
-	//Colisão com a parede inferior ou superior
+	//Colisï¿½o com a parede inferior ou superior
 	if (ball.y <= ball.r) {
-		//Normaliza a posição da bola
+		//Normaliza a posiï¿½ï¿½o da bola
 		ball.y = ball.r
 		ball.dir = -ball.dir
 	}
 	else if (ball.y >= h - ball.r) {
-		//Normaliza a posição da bola
+		//Normaliza a posiï¿½ï¿½o da bola
 		ball.y = h-ball.r
 		ball.dir = -ball.dir
 	}
 	
-	//Colisão com a barra esquerda
+	//Colisï¿½o com a barra esquerda
 	if (ball.x <= ball.r+paddleLeft.w 
 			&& Math.abs(paddleLeft.y-ball.y) <= Math.abs(paddleLeft.h-ball.r)) {
-		//Normaliza a posição da bola
+		//Normaliza a posiï¿½ï¿½o da bola
 		ball.x = ball.r+paddleLeft.w
 		
 		collidePaddle(paddleLeft)
 	}
-	//Colisão com a barra direita
+	//Colisï¿½o com a barra direita
 	else if (ball.x > w-ball.r-paddleRight.w
 			&& Math.abs(paddleRight.y-ball.y) <= Math.abs(paddleRight.h-ball.r)) {
-		//Normaliza a posição da bola
+		//Normaliza a posiï¿½ï¿½o da bola
 		ball.x = w-ball.r-paddleRight.w
 		
 		collidePaddle(paddleRight)
 	}
 	
-	//Atualiza o cálculo da velocidade das barras
+	//Atualiza o cï¿½lculo da velocidade das barras
 	function calcPaddleSpeed() {
 		//Barra esquerda
 		paddleLeft.speed = paddleLeft.oldY-paddleLeft.y //inversed axis coordinates
@@ -163,13 +163,13 @@ function checkCollision() {
 		paddleRight.oldY = paddleRight.y
 	}
 	
-	//Simula a colisão da bola com a barra especificada
+	//Simula a colisï¿½o da bola com a barra especificada
 	function collidePaddle(paddle) {
 		var vx = -ball.speed * Math.cos(ball.dir)
 		var vy = ball.speed * Math.sin(ball.dir) + paddle.speed
-		//Calcula o ângulo do vetor velocidade resultante, corrigindo a defasagem de 180 graus da função Math.atan
+		//Calcula o ï¿½ngulo do vetor velocidade resultante, corrigindo a defasagem de 180 graus da funï¿½ï¿½o Math.atan
 		ball.dir = Math.atan(vy/vx) + (vx < 0 ? RAD[180] : RAD[0])
-		//Calcula o módulo do vetor velocidade resultante
+		//Calcula o mï¿½dulo do vetor velocidade resultante
 		ball.speed = Math.sqrt(Math.pow(vx,2) + Math.pow(vy,2))
 		
 		normalizeBallDir()
@@ -177,7 +177,7 @@ function checkCollision() {
 	}
 }
 
-//Atualiza o gráfico do jogo
+//Atualiza o grï¿½fico do jogo
 function redraw() {
 	ctx.clearRect(0, 0, w, h)
 	
@@ -247,7 +247,7 @@ function drawBall() {
 	ctx.strokeStyle = '#000000'
 	ctx.fillStyle = '#FF0000'
 	
-	//Desenha o círculo
+	//Desenha o cï¿½rculo
 	ctx.beginPath()
 	ctx.arc(ball.x, ball.y, ball.r, 0, RAD[360], false)
 	ctx.closePath()
@@ -282,7 +282,7 @@ function drawNewGameMessage(winner) {
 		ctx.restore()
 	}
 	
-	//Instruções para novo jogo
+	//Instruï¿½ï¿½es para novo jogo
 	var newGameMsg = 'Clique para iniciar um novo jogo!'
 	ctx.fillText(newGameMsg, w/2, 2*h/3)
 	
